@@ -11,6 +11,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install pyinstaller pandas openpyxl
+      - run: pip install pyinstaller pandas openpyxl xlrd
       - run: pyinstaller --onefile --windowed check_bruto.py
       - uses: actions/upload-artifact@v4
         with:
