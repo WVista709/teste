@@ -3,6 +3,7 @@ from tkinter import filedialog, messagebox
 import conversor
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
+import os
 
 class InterfaceAgrupamentoExcel:
     def __init__(self, root):
@@ -80,34 +81,26 @@ class InterfaceAgrupamentoExcel:
             messagebox.showwarning("Atenção", "Escolha o diretório de destino antes de confirmar.")
             return
 
-        # Use um nome padrão se o campo estiver vazio
         nome_arquivo = self.entry_nome_arquivo.get().strip()
         if not nome_arquivo:
             nome_arquivo = "planilhas_agrupadas"
+
+        caminho_final = os.path.join(self.diretorio_destino, f"{nome_arquivo}.xlsx")
 
         self.botao_confirmar.config(state="disabled", text="Agrupando...")
         self.root.update()
 
         try:
-            caminho_final = conversor.agrupar_excels_em_um(
-                self.arquivos_selecionados, 
-                self.diretorio_destino, 
-                nome_arquivo
-            )
+            # Passa o dicionário de arquivos e o caminho final para a função
+            conversor.agrupar_excels_em_um(self.arquivos_selecionados, caminho_final)
 
-            #ABAS SEFAZ
+            # Executa as funções de pós-processamento
             sefaz(caminho_final)
-
-            #ABAS ALTERDATA
             alterdata(caminho_final)
-
-            #ABA CHECK
             Check.check_compras(caminho_final)
             Check.check_vendas(caminho_final)
 
-            messagebox.showinfo("Sucesso", 
-                              f"Arquivos agrupados com sucesso!\n\n"
-                              f"Arquivo criado:\n{caminho_final}")
+            messagebox.showinfo("Sucesso", f"Arquivos agrupados com sucesso!\n\nArquivo criado:\n{caminho_final}")
         except Exception as e:
             messagebox.showerror("Erro", f"Erro durante o agrupamento: {str(e)}")
         finally:
