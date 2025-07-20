@@ -133,6 +133,7 @@ class Check:
         CelulaValor(caminho_final, "CHECK", 1, "NÃO", linha=3)
         CelulaValor(caminho_final, "CHECK", 1, "SIM", linha=4)
         CelulaValor(caminho_final, "CHECK", 1, "TOTAL", linha=5)
+        CelulaValor(caminho_final, "CHECK", 3, "=B5-C5", linha=6)
 
         # Fórmulas - só se a aba existir
         if abas[0] in abas_existentes:  # COMPRAS SEFAZ
@@ -185,6 +186,7 @@ class Check:
         CelulaValor(caminho_final, "CHECK", 1, "NÃO", linha=10)
         CelulaValor(caminho_final, "CHECK", 1, "SIM", linha=11)
         CelulaValor(caminho_final, "CHECK", 1, "TOTAL", linha=12)
+        CelulaValor(caminho_final, "CHECK", 3, "=B12-C12", linha=13)
 
         # Fórmulas - só se as abas existirem
         if abas[0] in abas_existentes:  # VENDAS SEFAZ
